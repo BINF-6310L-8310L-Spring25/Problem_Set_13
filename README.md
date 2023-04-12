@@ -58,13 +58,17 @@ We need to recode the genome data and turn it into a matrix. If you get stuck se
 - Create a genotype matrix with a ```nrow=p, ncol=n, byrow=TRUE```
 - Transpose the genotype matrix using ```t()```
 
-### Read in the Phenotype Data
+### Read in the Phenotype & Population Data
 
 We have 1 phenotype file RiceDiversity_44K_Phenotypes_34traits_PLINK.txt
 The NFSTV ID is the name of the acessions
 There are 36 different traits
 
 -Read in the phenotype data but be sure to use ```stringsAsFactors = False```
+
+We also have population data saved in RiceDiversity.44K.germplasm.csv
+
+- Read in the population data - this is *c
 
 ### Answer the following questions 
 
@@ -80,12 +84,12 @@ We are going to conduct our GWAS on plant height stored in ```Plant.height```
 
 We need to process and prep our data first
 
-- Subsettting: Subset the **phenotype and genotype data** to only include the species that are NOT NA in Plant.height. We are going to assume that the Genotype data is in the **same order** as the phenotype data
+- Subsettting: Subset the **phenotype, fam, and genotype data** to only include the species that are NOT NA in Plant.height. We are going to assume that the Genotype and FAM data is in the **same order** as the phenotype data
 - Genotype NA: We still have NA values in our genotype. We want to replace the NAs with the column means. You should implement a loop that loops through all of the columns and replaces the NA with the column mean 
 - Rare Alleles: We need to compute the minor allele frequency and then remove the ones that have a maf < 0.05 (aka maf >= 0.05) from the genotype file 
 - Subset the Map data to exclude markers with MAF < 0.05 *assume they are in the same order as the gentoype data above*
 
-We have subset the Genotye, Phenotype and Map data
+We have subset the Genotye, Phenotype Fam, and Map data
 
 Calculating the maf
 ```
@@ -124,4 +128,12 @@ snpgdsCreateGeno("44k.gds", genmat = Geno1, sample.id = sample, snp.id = snp.id,
 geno_44k <- snpgdsOpen("44k.gds")
 snpgdsSummary("44k.gds")
 ```
+- Conduct a PCA using ```snpgsdPCA()``` example: ```pca <- snpgdsPCA(geno_44k, snp.id = colnames(Geno1))```
+- Save your PCA data in a dataframe and visualize it using code similar to below
 
+```
+pca <- data.frame(sample.id = edited_fam_data$V2, EV1 = pca$eigenvect[, 1], EV2 = pca$eigenvect[, 
+    2], EV3 = pca$eigenvect[, 3], EV3 = pca$eigenvect[, 4], stringsAsFactors = FALSE)
+# Plot the PCA
+plot(pca$EV2, pca$EV1, xlab = "eigenvector 3", ylab = "eigenvector 4")
+```
