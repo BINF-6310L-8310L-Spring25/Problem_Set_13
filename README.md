@@ -68,7 +68,7 @@ There are 36 different traits
 
 We also have population data saved in RiceDiversity.44K.germplasm.csv
 
-- Read in the population data - this is *c
+- Read in the population data - this is **comma** delimited
 
 ### Answer the following questions 
 
@@ -89,7 +89,7 @@ We need to process and prep our data first
 - Rare Alleles: We need to compute the minor allele frequency and then remove the ones that have a maf < 0.05 (aka maf >= 0.05) from the genotype file 
 - Subset the Map data to exclude markers with MAF < 0.05 *assume they are in the same order as the gentoype data above*
 
-We have subset the Genotye, Phenotype Fam, and Map data
+We have subset the Genotye, Phenotype, Fam, and Map data
 
 Calculating the maf
 ```
@@ -137,3 +137,61 @@ pca <- data.frame(sample.id = edited_fam_data$V2, EV1 = pca$eigenvect[, 1], EV2 
 # Plot the PCA
 plot(pca$EV2, pca$EV1, xlab = "eigenvector 3", ylab = "eigenvector 4")
 ```
+
+- Now we are going to add the population data to the data frame containing our PCA data. The samples *are not in the same order* this time so we will use ```full_join()``` from the dplyr package. See below for example
+
+```pca<-left_join(pca, Pop, by=c("sample.id"="NSFTV.ID"))```
+
+- Finally, visualize the PCA with the population colored
+
+```
+plot(pca$EV1, pca$EV2, xlab = "PC1", ylab = "PC2", col = c(1:6)[factor(pca$Sub.population)])
+```
+
+
+### Step 4 - Conduct the GWAS
+
+The GWAS function requires two data frames that are in the format below:
+
+```
+pheno	
+Data frame where the first column is the line name (gid). The remaining columns can be either a phenotype or the levels of a fixed effect. Any column not designated as a fixed effect is assumed to be a phenotype.
+
+geno	
+Data frame with the marker names in the first column. The second and third columns contain the chromosome and map position (either bp or cM), respectively, which are used only when plot=TRUE to make Manhattan plots. If the markers are unmapped, just use a placeholder for those two columns. Columns 4 and higher contain the marker scores for each line, coded as {-1,0,1} = {aa,Aa,AA}. Fractional (imputed) and missing (NA) values are allowed. The column names must match the line names in the "pheno" data frame.
+```
+
+- Format a final phenotype and genotype data table. I have included an example below 
+
+
+```
+ph_geno.final<-data.frame(marker = edited_map[, 2], chrom = edited_map[, 1], pos = edited_map[,4], t(edited_geno - 1), check.names = FALSE) 
+
+colnames(ph_geno.final)<-c("marker","chrom","pos",edited_family$V2)
+
+ph_pheno.final<-as.data.frame(edited_phenotype[,c("NSFTVID","Plant.height")])
+
+```
+
+- Run the GWAS! This may take a second to run
+
+```GWAS <- GWAS(ph_pheno.final, ph_geno.final, min.MAF = 0.05, P3D = TRUE, plot = TRUE)```
+
+
+### Step 5 - Multiple Test Correction & Visualization 
+
+The multiple test correction method takes ahwile to compute. So instead we will use the MTC cutoff calculated in the tutorial. 
+
+- Use the following commands to access the GWAS results ```GWAS_1 <- GWAS %>% filter(Plant.height != "0")```
+- Access the list of significant snps using ```GWAS_1 %>% filter(Plant.height < 1e-04)```
+- Visulize the GWAS using the command below
+```manhattan(x = GWAS_1, chr = "chrom", bp = "pos", p = "Plant.height", snp = "marker", col = c("blue4", 
+    "orange3"), suggestiveline = -log10(1e-04), logp = TRUE)```
+    
+Answer the questions below
+
+- How many loci pass our MTC and are significantly associated with Plant height?
+- Use the Rice Genome Browswer to find the gene (LOC...) that contains the associated vairant found on Chromosome 8 (note the format for searching a landmark region MUST follow a strict format. If the associated loci was on chromosome 2 and position 145 you would search for "Chr2:145..146
+
+
+
