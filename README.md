@@ -185,8 +185,11 @@ The multiple test correction method takes ahwile to compute. So instead we will 
 - Use the following commands to access the GWAS results ```GWAS_1 <- GWAS %>% filter(Plant.height != "0")```
 - Access the list of significant snps using ```GWAS_1 %>% filter(Plant.height < 1e-04)```
 - Visulize the GWAS using the command below
-```manhattan(x = GWAS_1, chr = "chrom", bp = "pos", p = "Plant.height", snp = "marker", col = c("blue4", 
-    "orange3"), suggestiveline = -log10(1e-04), logp = TRUE)```
+
+```
+manhattan(x = GWAS_1, chr = "chrom", bp = "pos", p = "Plant.height", snp = "marker", col = c("blue4", 
+    "orange3"), suggestiveline = -log10(1e-04), logp = TRUE)
+```
     
 Answer the questions below
 
