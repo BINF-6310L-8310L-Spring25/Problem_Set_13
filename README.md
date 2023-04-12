@@ -194,7 +194,7 @@ manhattan(x = GWAS_1, chr = "chrom", bp = "pos", p = "Plant.height", snp = "mark
 Answer the questions below
 
 - How many loci pass our MTC and are significantly associated with Plant height?
-- Use the Rice Genome Browswer to find the gene (LOC...) that contains the associated vairant found on Chromosome 8 (note the format for searching a landmark region MUST follow a strict format. If the associated loci was on chromosome 2 and position 145 you would search for "Chr2:145..146
+- What gene is associated with the varaint found on chromosome 8. Use the Rice Genome Browswer to find the gene (LOC...) that contains the associated vairant found on Chromosome 8 (note the format for searching a landmark region MUST follow a strict format. If the associated loci was on chromosome 2 and position 145 you would search for "Chr2:145..146
 
 
 
