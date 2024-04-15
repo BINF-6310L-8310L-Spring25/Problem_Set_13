@@ -179,7 +179,7 @@ Which two populations are distinguished on the second PC/Eigenvector?
 &nbsp;
 &nbsp;
 
-### Step 5 - Conduct the GWAS
+## Step 5 - Conduct the GWAS
 
 The GWAS function requires two data frames that are in the format below:
 
@@ -208,13 +208,13 @@ ph_pheno.final<-as.data.frame(edited_phenotype[,c("NSFTVID","Plant.height")])
 ```GWAS <- GWAS(ph_pheno.final, ph_geno.final, min.MAF = 0.05, P3D = TRUE, plot = TRUE)```
 
 
-### Step 5 - Multiple Test Correction & Visualization 
+## Step 6 - Multiple Test Correction & Visualization 
 
-The multiple test correction method takes ahwile to compute. So instead we will use the MTC cutoff calculated in the tutorial. 
+The multiple-test correction method takes a while to compute. So, instead, we will use the MTC cutoff calculated in the tutorial. 
 
 - Use the following commands to access the GWAS results ```GWAS_1 <- GWAS %>% filter(Plant.height != "0")```
 - Access the list of significant snps using ```GWAS_1 %>% filter(Plant.height < 1e-04)```
-- Visulize the GWAS using the command below
+- Visualize the GWAS using the command below
 
 ```
 manhattan(x = GWAS_1, chr = "chrom", bp = "pos", p = "Plant.height", snp = "marker", col = c("blue4", 
@@ -223,8 +223,11 @@ manhattan(x = GWAS_1, chr = "chrom", bp = "pos", p = "Plant.height", snp = "mark
     
 Answer the questions below
 
+# Question 6A
 - How many loci pass our MTC and are significantly associated with Plant height?
-- What gene is associated with the varaint found on chromosome 8. Use the Rice Genome Browswer to find the gene (LOC...) that contains the associated vairant found on Chromosome 8 (note the format for searching a landmark region MUST follow a strict format. If the associated loci was on chromosome 2 and position 145 you would search for "Chr2:145..146
+
+# Question 6B
+- What gene is associated with the variant found on chromosome 8? Use the Rice Genome Browser to find the gene (LOC...) that contains the associated variant found on Chromosome 8 (note the format for searching a landmark region MUST follow a strict format. If the associated locus was on chromosome 2 and position 145 you would search for "Chr2:145..146
 
 
 
