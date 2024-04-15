@@ -48,9 +48,9 @@ The allele data is encoded as follows
 
 ### Extract and edit marker data
 
-We need to recode the genome data and turn it into a matrix. If you get stuck see the original tutorial 
+We need to recode the genome data and turn it into a matrix. If you get stuck, see the original tutorial. 
 
-- The ped object contains 3 things: the dimenions of the dataset (p and n) and a single list of the genotypes (x)
+- The ped object contains 3 things: the dimensions of the dataset (p and n) and a single list of the genotypes (x)
 - Save the genotype data (x) into a new object
 - Recode the genotype data such that
 - - 2 becomes NA
