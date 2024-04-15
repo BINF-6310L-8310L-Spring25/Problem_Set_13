@@ -93,7 +93,7 @@ We also have population data saved in RiceDiversity.44K.germplasm.csv
 &nbsp;
 &nbsp;
 
-## Step 2 Prepare data for GWAS 
+## Step 3 Prepare data for GWAS 
 
 We are going to conduct our GWAS on plant height stored in ```Plant.height```
 
@@ -120,7 +120,7 @@ maf <- ifelse(p > 0.5, 1 - p, p)
 
 &nbsp;
 
-## Step 3 Analyze population structure with a PCA
+## Step 4 Analyze population structure with a PCA
 
 We are going to use the SNPRelate package for this step. Conduct this analysis on our **filtered data**
 
@@ -160,14 +160,26 @@ plot(pca$EV2, pca$EV1, xlab = "eigenvector 3", ylab = "eigenvector 4")
 
 ```pca<-left_join(pca, Pop, by=c("sample.id"="NSFTV.ID"))```
 
-- Finally, visualize the PCA with the population colored
+- Finally, visualize the PCA with the population colored using the code below or ggplot. 
 
 ```
 plot(pca$EV1, pca$EV2, xlab = "PC1", ylab = "PC2", col = c(1:6)[factor(pca$Sub.population)])
 ```
 
+&nbsp;
 
-### Step 4 - Conduct the GWAS
+# Question 4A
+
+Which population has the most variation on the PCA? 
+
+# Question 4B
+
+Which two populations are distinguished on the second PC/Eigenvector? 
+
+&nbsp;
+&nbsp;
+
+### Step 5 - Conduct the GWAS
 
 The GWAS function requires two data frames that are in the format below:
 
