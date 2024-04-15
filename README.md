@@ -28,6 +28,9 @@ BiocManager::install("SNPRelate")
 
 More info here: https://www.bioconductor.org/packages/release/bioc/html/SNPRelate.html 
 
+&nbsp;
+&nbsp;
+
 ## Step 2 - Read in the data
 
 We have 3 genotype files 
@@ -41,10 +44,14 @@ The allele data is encoded as follows
 3: Homozygous for major allele
 2: Missing data 
 
+&nbsp;
+
 ### Read in genotype data 
 
 - read in the .ped file using ```read_ped()```
 - read in the .fam and .map files as tables
+
+&nbsp;
 
 ### Extract and edit marker data
 
@@ -58,6 +65,8 @@ We need to recode the genome data and turn it into a matrix. If you get stuck, s
 - Create a genotype matrix with a ```nrow=p, ncol=n, byrow=TRUE```
 - Transpose the genotype matrix using ```t()```
 
+&nbsp;
+
 ### Read in the Phenotype & Population Data
 
 We have 1 phenotype file RiceDiversity_44K_Phenotypes_34traits_PLINK.txt
@@ -70,13 +79,19 @@ We also have population data saved in RiceDiversity.44K.germplasm.csv
 
 - Read in the population data - this is **comma** delimited
 
-### Answer the following questions 
+&nbsp;
 
+# Question 2A
 - How many individuals were genotyped?
+
+# Question 2B
 - How many NAs are in our genotype data?
+
+# Question 2C
 - How many NAs are in our phenotype data?
 
-
+&nbsp;
+&nbsp;
 
 ## Step 2 Prepare data for GWAS 
 
@@ -84,10 +99,10 @@ We are going to conduct our GWAS on plant height stored in ```Plant.height```
 
 We need to process and prep our data first
 
-- Subsettting: Subset the **phenotype, fam, and genotype data** to only include the species that are NOT NA in Plant.height. We are going to assume that the Genotype and FAM data is in the **same order** as the phenotype data
+- Subsetting: Subset the **phenotype, fam, and genotype data** to only include the species that are NOT NA in Plant.height. We are going to assume that the Genotype and FAM data is in the **same order** as the phenotype data
 - Genotype NA: We still have NA values in our genotype. We want to replace the NAs with the column means. You should implement a loop that loops through all of the columns and replaces the NA with the column mean 
 - Rare Alleles: We need to compute the minor allele frequency and then remove the ones that have a maf < 0.05 (aka maf >= 0.05) from the genotype file 
-- Subset the Map data to exclude markers with MAF < 0.05 *assume they are in the same order as the gentoype data above*
+- Subset the Map data to exclude markers with MAF < 0.05 *assume they are in the same order as the genotype data above*
 
 We have subset the Genotye, Phenotype, Fam, and Map data
 
@@ -97,14 +112,17 @@ p <- colSums(Geno)/(2 * nrow(Geno))
 maf <- ifelse(p > 0.5, 1 - p, p)
 ```
 
-### Answer the following questions
+# Question 3A
 - How many individuals are left for analysis
+
+# Question 3B
 - How many SNPs are left for analysis 
 
+&nbsp;
 
 ## Step 3 Analyze population structure with a PCA
 
-We are goin gto use the SNPRelate package for this step. Conduct this analysis on our **filtered data**
+We are going to use the SNPRelate package for this step. Conduct this analysis on our **filtered data**
 
 - Create a gds file using ```snpgdsCreateGeno()``` This requires the options below
 
