@@ -227,7 +227,7 @@ Answer the questions below
 - How many loci pass our MTC and are significantly associated with Plant height?
 
 # Question 6B
-- What gene is associated with the variant found on chromosome 8? Use the Rice Genome Browser to find the gene (LOC...) that contains the associated variant found on Chromosome 8 (note the format for searching a landmark region MUST follow a strict format. If the associated locus was on chromosome 2 and position 145 you would search for "Chr2:145..146
+- What gene is associated with the variant found on chromosome 8? Use the Rice Genome Browser to find the gene (http://rice.uga.edu/analyses_search_locus.shtml ) that contains the associated variant found on Chromosome 8 (note the format for searching a landmark region MUST follow a strict format. If the associated locus was on chromosome 2 and position 145 you would search for "Chr2:145..146"
 
 
 
