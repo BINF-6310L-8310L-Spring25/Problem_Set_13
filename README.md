@@ -1,4 +1,4 @@
-# Problem_Set_13
+# Problem_Set_14
 
 This week we will be conducting a GWAS using rice data. The tutorial is adapted from https://whussain2.github.io/Materials/Teaching/GWAS_R_2.html
 
