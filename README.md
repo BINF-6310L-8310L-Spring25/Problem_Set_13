@@ -2,6 +2,8 @@
 
 This week we will be conducting a GWAS using rice data. The tutorial is adapted from https://whussain2.github.io/Materials/Teaching/GWAS_R_2.html
 
+All files you need are located in the Github repository OR the Canvas Module
+
 ## Step 1 - Install packages
 
 We will need the following packages 
